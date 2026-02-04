@@ -6,7 +6,7 @@ import numpy as np
 
 # 1. Configuration
 st.set_page_config(page_title="IA Maintenance", layout="wide")
-st.title("🛠️ Dashboard de Maintenance Prédictive")
+st.title(" Dashboard de Maintenance Prédictive")
 
 # 2. Chargement du modèle
 @st.cache_resource
@@ -47,7 +47,7 @@ if uploaded_file is not None and model is not None:
         df = pd.DataFrame(data_rows)
 
         if not df.empty and df.shape[1] >= 10:
-            st.success(f"✅ Succès ! {df.shape[0]} moteurs détectés avec {df.shape[1]} capteurs.")
+            st.success(f" Succès ! {df.shape[0]} moteurs détectés avec {df.shape[1]} capteurs.")
 
             # Prédiction : X = tout sauf les colonnes 0 et 1 (ID et Cycle)
             X = df.iloc[:, 2:] 
@@ -56,7 +56,7 @@ if uploaded_file is not None and model is not None:
             # Affichage des colonnes
             col1, col2 = st.columns([1, 1.2])
             with col1:
-                st.subheader("📋 État de la Flotte")
+                st.subheader(" État de la Flotte")
                 results = pd.DataFrame({
                     'ID Moteur': df.iloc[:, 0].astype(int),
                     'Cycle': df.iloc[:, 1].astype(int),
@@ -65,7 +65,7 @@ if uploaded_file is not None and model is not None:
                 st.dataframe(results.head(100), use_container_width=True)
 
             with col2:
-                st.subheader("📈 Courbe de RUL")
+                st.subheader(" Courbe de RUL")
                 fig, ax = plt.subplots(figsize=(10, 5))
                 ax.plot(predictions[:150], color='red', linewidth=2)
                 ax.set_ylabel("Cycles restants")
@@ -77,4 +77,5 @@ if uploaded_file is not None and model is not None:
         st.error(f"Erreur lors du traitement : {e}")
 
 elif model is None:
+
     st.error("Modèle introuvable. Vérifiez que 'maintenance_model.joblib' est bien dans le dossier.")
